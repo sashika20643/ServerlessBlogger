@@ -1,0 +1,16 @@
+{
+  "resourceName": "s3testblogger",
+  "policyUUID": "876a212b",
+  "bucketName": "serverlessblogger4765849ba144454a9073c0a54dbb0c",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

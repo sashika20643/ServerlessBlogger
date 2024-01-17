@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "serverlessblogger",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authserverlessbloggerabecc0ef",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
