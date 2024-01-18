@@ -1,6 +1,6 @@
 
 
-import { generateClient } from 'aws-amplify/api';
+import { GraphQLResult, generateClient } from 'aws-amplify/api';
 import { uploadData } from 'aws-amplify/storage';
 import { useEffect, useState } from 'react';
 import {createPost} from '../graphql/mutations';
@@ -8,15 +8,31 @@ import {createPost} from '../graphql/mutations';
 import { CategoryData, Post } from '../Types/data';
 import { listCategories } from '../graphql/queries';
 import {v4} from 'uuid'
+import TextEditor from '../components/TextEditor';
+import { useNavigate } from 'react-router-dom';
 
+
+const initialPostState = {
+  title: '',
+  body: '',
+  category: '',
+  image: null,
+};
 
 
 export default function DashBoard() {
     const client = generateClient();
     const [catdata, setCatdata] = useState<CategoryData[]>([]);
+    const navigate = useNavigate();
+
+    // When clicking on a post
+    const handleNavigate = () => {
+      navigate(`/posts`);
+    };
+    
     useEffect(()=>{
         const fetchCats = async() =>{
-         const res= await client.graphql(
+         const res: GraphQLResult<any>= await client.graphql(
           {
             query:listCategories
           }
@@ -84,6 +100,7 @@ try {
       }
     }).result;
     console.log('Succeeded: ', result);
+    handleNavigate ();
   }
  } catch (error) {
     console.log('Error : ', error);
@@ -102,13 +119,24 @@ try {
       variables: { input: postdata },
 
     });
+    setPost(initialPostState)
 
     console.log('GraphQL Mutation Result:', result);
   } catch (error) {
     console.error('Error creating post:', error);
   }
 
+
+
+
       }
+      const handleProcedureContentChange = (content:string) => {
+        setPost({
+          ...post,
+          ["body"]: content,
+        });
+        console.log(post)
+      };
   return (
     <div className='lg:w-3/4 w-full'>
         <h1 className='text-2xl font-bold '>
@@ -131,13 +159,8 @@ try {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-600 text-sm font-semibold  mb-2">Body</label>
-          <textarea
-            name="body"
-            value={post.body}
-            onChange={handleChange}
-            className="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:border-blue-500 min-h-60"
-          />
+        <TextEditor handleProcedureContentChange={handleProcedureContentChange} />
+     
         </div>
          </div>
      

@@ -1,10 +1,12 @@
 import  { useEffect, useState } from 'react'
 import {listPosts} from '../graphql/queries';
-import { generateClient } from 'aws-amplify/api';
+import { GraphQLResult, generateClient } from 'aws-amplify/api';
 import {  PostData } from '../Types/data';
 import PostCard from '../components/Postcard';
 import { deletePost } from '../graphql/mutations';
 import { remove } from 'aws-amplify/storage';
+import ThreeDotsWave from '../components/ThreeDotsWave';
+import { Link } from 'react-router-dom';
 
 
 
@@ -15,7 +17,7 @@ export default function Allposts() {
 
     useEffect(()=>{
         const fetchPosts = async() =>{
-         const res= await client.graphql(
+         const res: GraphQLResult<any>= await client.graphql(
           {
             query:listPosts
           }
@@ -41,7 +43,7 @@ fetchPosts()
       )
 
       const handleDelete=async(Catid:string,filename:string)=>{
-        const result=await client.graphql({
+        await client.graphql({
           query:deletePost,
           variables:{
             input:{
@@ -63,10 +65,15 @@ fetchPosts()
     <div className='md:w-3/4 '>Allposts
 
 <div className=" p-5 w-full overflow-hidden">
+  <div className='text-right  mb-5'>
+  <Link to={"/dashboard"} className='border-2 border-blue-500 px-2 py-1 rounded-md hover:bg-blue-500 hover:text-white transition-colors  duration-300 ease-in-out'>  Create Post</Link>
+
+  </div>
 <div>
       <table className='w-full'>
         <tbody className='w-full'>
-    {posts.map((post)=>(
+          {posts.length<1 ?<ThreeDotsWave/>: 
+    posts.map((post)=>(
 
       
   <PostCard deletehandle={handleDelete} postdata={post}/>

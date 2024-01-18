@@ -8,6 +8,8 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import Dashlayout from './Pages/Dashlayout'
 import Allposts from './Pages/Allposts'
 import Categories from './Pages/Categories'
+import Bloglayout from './Pages/Bloglayout'
+import PostDetail from './Pages/PostDetail'
 
 
 
@@ -18,7 +20,17 @@ function App() {
       path:"/",
       element: <RootLayout/>,
       children:[
-        {path:'/', element:<Home/>},
+        {path:'/', element:<Bloglayout/>,
+      children:[{
+        path:"/",element:
+  <Home/>
+      },
+      {
+        path: "/post/:id",  // Use a dynamic route parameter ":id"
+        element: <PostDetail />,
+      },
+    ]
+      },
         {path:'/dashboard',element:
         <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']}>
         {({ signOut, user }) => (
@@ -28,7 +40,7 @@ function App() {
           <button onClick={signOut}>Sign out</button>
         </main>
       )}
-      
+
             
             </Authenticator>,
             children: [  {path:'/dashboard', element:

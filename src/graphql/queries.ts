@@ -79,17 +79,21 @@ export const getPost = /* GraphQL */ `
       title
       body
       image
-      blog {
-        id
-        name
-        createdAt
-        updatedAt
-        __typename
-      }
       comments {
-        nextToken
-        __typename
+        owner
+        content
+        createdAt
       }
+      category {
+      name
+      posts {
+        items {
+          id
+          image
+          title
+        }
+      }
+    }
       createdAt
       updatedAt
       blogPostsId
@@ -171,3 +175,20 @@ export const listComments = /* GraphQL */ `
     }
   }
 `;
+export const listCategoriesWithposts=/* GraphQL */`
+ query ListCategories listCategories{{
+    items {
+      id
+      image
+      name
+      posts(limit: 10) {
+        items {
+          body
+          id
+          image
+          title
+          updatedAt
+        }
+      }
+    }
+  }}`;

@@ -30,3 +30,34 @@ export type Post= {
     id:string;
    
   }
+
+  export type CategoryPostData= {
+    name: string;
+    id:string;
+    image: string;
+    posts:{
+      items:PostData[]
+    }
+    
+
+ 
+    
+   }
+   export type Comment={
+    owner:string;
+    content:string;
+    createdAt:string
+   }
+
+   export type OnePost={
+    title: string;
+    body: string;
+    image: File | null;
+    updatedAt: string;
+    category:CategoryPostData;
+    comments:{
+      items:Comment[]
+    }
+
+
+   }

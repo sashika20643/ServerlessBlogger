@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Category, CategoryData } from "../Types/data";
 import { uploadData } from "aws-amplify/storage";
 import { createCategory, deleteCategory } from "../graphql/mutations";
-import { generateClient } from "aws-amplify/api";
+import { GraphQLResult, generateClient } from "aws-amplify/api";
 import { listCategories } from "../graphql/queries";
 import CatCard from "../components/Catcard";
+import ThreeDotsWave from "../components/ThreeDotsWave";
 
 
 export default function Categories() {
@@ -13,7 +14,7 @@ export default function Categories() {
     const [catdata, setCatdata] = useState<CategoryData[]>([]);
     useEffect(()=>{
         const fetchCats = async() =>{
-         const res= await client.graphql(
+         const res: GraphQLResult<any>= await client.graphql(
           {
             query:listCategories
           }
@@ -91,14 +92,14 @@ fetchCats()
        }  
 
        try {
-           const result = await client.graphql({
+           const result: GraphQLResult<any> = await client.graphql({
              query: createCategory,
              variables: { input: catdata },
        
            });
        
            console.log('GraphQL Mutation Result:', result);
-           setcatrefresh(result);
+           setcatrefresh("xxx");
          } catch (error) {
            console.error('Error creating post:', error);
          }
@@ -107,7 +108,7 @@ fetchCats()
 
 
              const handleDelete=async(Catid:string)=>{
-                const result=await client.graphql({
+              await client.graphql({
                   query:deleteCategory,
                   variables:{
                     input:{
@@ -116,7 +117,7 @@ fetchCats()
                   }
                   
                 })
-                setcatrefresh(result);
+                setcatrefresh("yyy");
               }
 
   return (
@@ -159,7 +160,8 @@ All Catogories
     <h3>All Categories</h3>
     <table className='w-full'>
         <tbody className=' overflow-x'>
-        {catdata.map((cat,index)=>(
+          {catdata.length<1?  <ThreeDotsWave /> :
+        catdata.map((cat,index)=>(
             <CatCard deletehandle={handleDelete} catdata={cat} key={index}/>
         )
 

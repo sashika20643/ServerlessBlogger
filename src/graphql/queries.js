@@ -78,25 +78,17 @@ export const getPost = /* GraphQL */ `
       title
       body
       image
-      blog {
-        id
-        name
-        createdAt
-        updatedAt
-        __typename
-      }
       category {
-        id
-        name
-        image
-        createdAt
-        updatedAt
-        __typename
+      name
+      posts {
+        items {
+          id
+          image
+          title
+          
+        }
       }
-      comments {
-        nextToken
-        __typename
-      }
+    }
       createdAt
       updatedAt
       blogPostsId
@@ -105,6 +97,7 @@ export const getPost = /* GraphQL */ `
     }
   }
 `;
+
 export const listPosts = /* GraphQL */ `
   query ListPosts(
     $filter: ModelPostFilterInput
@@ -178,3 +171,21 @@ export const listComments = /* GraphQL */ `
     }
   }
 `;
+
+export const listCategoriesWithposts=/* GraphQL */`
+ query ListCategories {listCategories{
+    items {
+      id
+      image
+      name
+      posts(limit: 10) {
+        items {
+          body
+          id
+          image
+          title
+          updatedAt
+        }
+      }
+    }
+  }}`;

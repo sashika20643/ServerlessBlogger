@@ -8,8 +8,8 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({ postdata,deletehandle }) => {
   return (
  
-          <tr className=' border-2 w-full max-w-screen mb-5 pt-2 overflow-hidden '>
-            <td className=" p-2">
+          <tr className=' border-b-2 w-full max-w-screen mb-5 pt-2 overflow-hidden  '>
+            <td className="p-2">
             <img className=' w-36 h-28 min-w-36 min-h-28' src={`https://serverlessblogger4765849ba144454a9073c0a54dbb0c144656-dev.s3.ap-southeast-2.amazonaws.com/public/${postdata.image}`} alt="" />
 
  
