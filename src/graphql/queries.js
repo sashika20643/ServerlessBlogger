@@ -71,6 +71,8 @@ export const listCategories = /* GraphQL */ `
     }
   }
 `;
+
+//updated query..
 export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
@@ -171,7 +173,7 @@ export const listComments = /* GraphQL */ `
     }
   }
 `;
-
+//added query
 export const listCategoriesWithposts=/* GraphQL */`
  query ListCategories {listCategories{
     items {

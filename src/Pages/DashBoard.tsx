@@ -27,7 +27,7 @@ export default function DashBoard() {
 
     // When clicking on a post
     const handleNavigate = () => {
-      navigate(`/posts`);
+      navigate(`/dashboard/posts`);
     };
     
     useEffect(()=>{

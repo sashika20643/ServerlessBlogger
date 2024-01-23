@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { CategoryData, CategoryPostData, Post, PostData } from "../Types/data";
+import { CategoryPostData, Post } from "../Types/data";
 import { listCategoriesWithposts, listPosts } from "../graphql/queries";
 import { GraphQLResult, generateClient } from "aws-amplify/api";
 import Slider from "../components/Slider";
 import BlogPostCard from "../components/BlogPostCard";
+import { MotionConfig} from "framer-motion";
 
 
 export default function Home() {
@@ -12,7 +13,7 @@ export default function Home() {
 
   const[catagories,setCatagories]=useState<CategoryPostData[]>([])
 
-  const[refresh,Setrefresh]=useState(true);
+
   const [slider,setSlider]=useState([]);
 
     useEffect(()=>{
@@ -30,7 +31,7 @@ export default function Home() {
           
      
           setSlider(
-            postsData.slice(0, 4).map((postdata:Post) =>
+            postsData.slice(1, 5).map((postdata:Post) =>
               `https://serverlessblogger4765849ba144454a9073c0a54dbb0c144656-dev.s3.ap-southeast-2.amazonaws.com/public/${postdata.image}`
             ));
        
@@ -65,13 +66,24 @@ fetchCatPost()
       <Slider slider={slider} />
 
       <div className="flex flex-wrap gap-6 justify-center mt-10 ">
+
+        
+
+        
         {catagories.map((cat,index)=>(
           <div className="" key={index} >
+            
+        <MotionConfig transition={{
+          duration:.3,
+          ease:"easeInOut"
+        }}>
 {cat.posts.items.map((post)=>(
   <BlogPostCard post={post}/>
 ))}
+</MotionConfig>
           </div>
         ))}
+     
       </div>
     </div>
   )
