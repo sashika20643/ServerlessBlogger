@@ -1,12 +1,32 @@
 🚀 Blog Application with AWS Amplify
 
  developed using
- AWS Amplify, 
- Cognito for authentication, 
- DynamoDB for storage, 
- AppSync for GraphQL communication, 
- S3 for media storage, 
- React with Tailwind CSS for the front end
+ <ul>
+ <li>
+  AWS Amplify, 
+ </li>
+ <li>
+  Cognito for authentication, 
+ </li>
+ <li>
+   DynamoDB for storage, 
+ </li>
+ <li>
+   AppSync for GraphQL communication, 
+ </li>
+
+  <li>
+  S3 for media storage, 
+ </li>
+ <li>
+ React with Tailwind CSS for the front end </li>
+</ul>
+ 
+ 
+
+
+ 
+
   Dive into the code to explore the seamless integration of these technologies and the lessons learned along the way.
 
 📖 Read the Journey: 
